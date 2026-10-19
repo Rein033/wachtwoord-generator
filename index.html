@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wachtwoord Generator</title>
+<meta name="description" content="Maak sterke, echt willekeurige wachtwoorden of makkelijk te onthouden wachtzinnen. Alles gebeurt in je browser met crypto.getRandomValues().">
+<meta property="og:title" content="Wachtwoord Generator">
+<meta property="og:description" content="Maak sterke, echt willekeurige wachtwoorden of makkelijk te onthouden wachtzinnen. Alles gebeurt in je browser met crypto.getRandomValues().">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='7' fill='%2303a9f4'/%3E%3Crect x='9' y='10' width='14' height='3' rx='1.5' fill='%23fff'/%3E%3Crect x='9' y='15' width='10' height='3' rx='1.5' fill='%23fff' opacity='.7'/%3E%3Crect x='9' y='20' width='12' height='3' rx='1.5' fill='%23fff' opacity='.5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="base.css?v=1">
+<link rel="stylesheet" href="style.css?v=1">
+
+<script defer src="https://analytics.uselesssite.nl/script.js" data-website-id="c8741679-5df2-4679-9527-39cc9edc25c0"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="./"><span class="logo"><i class="mdi mdi-form-textbox-password"></i></span>
+    <div><b>Wachtwoord Generator</b><small>Sterke wachtwoorden en wachtzinnen</small></div></a>
+  <nav>
+    <button type="button" class="ib" id="theme" title="Licht / donker"><i class="mdi mdi-theme-light-dark"></i></button>
+    <a href="https://uselesssite.nl/tools/" class="ghost"><i class="mdi mdi-view-grid-outline"></i> <span>Alle tools</span></a>
+    <a href="https://github.com/Rein033/wachtwoord-generator" class="ghost"><i class="mdi mdi-github"></i> <span>GitHub</span></a>
+    <a href="https://buymeacoffee.com/rein033" class="coffee" target="_blank" rel="noopener"><i class="mdi mdi-coffee"></i> <span>Koffie</span></a>
+  </nav>
+</header>
+
+<main>
+<div class="cols">
+  <div class="panel">
+    <div class="tile-head"><div class="tile-ic"><i class="mdi mdi-tune-variant"></i></div><div class="tile-txt"><b>Instellingen</b><small>Kies wat voor wachtwoord je wilt</small></div></div>
+    <div class="seg" id="modus" style="margin-bottom:16px"><button type="button" data-v="tekens" class="on"><i class="mdi mdi-asterisk"></i> Wachtwoord</button><button type="button" data-v="zin"><i class="mdi mdi-text"></i> Wachtzin</button></div>
+    <div id="opt-tekens">
+      <div class="fld"><label>Lengte: <b id="lenv">16</b> tekens</label><input type="range" id="len" min="6" max="128" value="16"></div>
+      <div style="margin:12px 0 4px">
+        <label class="tog"><input type="checkbox" data-set="upper" checked><span></span> Hoofdletters (A-Z)</label>
+        <label class="tog"><input type="checkbox" data-set="lower" checked><span></span> Kleine letters (a-z)</label>
+        <label class="tog"><input type="checkbox" data-set="digits" checked><span></span> Cijfers (0-9)</label>
+        <label class="tog"><input type="checkbox" data-set="symbols"><span></span> Symbolen (!@#$%&amp;*…)</label>
+        <label class="tog"><input type="checkbox" id="similar"><span></span> Geen tekens die op elkaar lijken (I l 1 O 0)</label>
+      </div>
+    </div>
+    <div id="opt-zin" hidden>
+      <div class="fld"><label>Aantal woorden: <b id="wrdv">6</b></label><input type="range" id="wrd" min="3" max="10" value="6"></div>
+      <div class="form" style="margin-top:12px">
+        <div class="fld"><label>Scheidingsteken</label><div class="seg" id="sep"><button type="button" data-v="-" class="on">-</button><button type="button" data-v=".">.</button><button type="button" data-v="_">_</button><button type="button" data-v=" ">spatie</button><button type="button" data-v="">geen</button></div></div>
+        <div class="fld" style="justify-content:flex-end">
+          <label class="tog"><input type="checkbox" id="hoofd" checked><span></span> Woorden met Hoofdletter</label>
+          <label class="tog"><input type="checkbox" id="getal" checked><span></span> Cijfer erachter</label></div>
+      </div>
+    </div>
+    <div class="fld" style="margin-top:12px"><label>Hoeveel: <b id="cntv">5</b></label><input type="range" id="cnt" min="1" max="20" value="5"></div>
+    <button type="button" class="main wide-btn" id="gen" style="margin-top:16px"><i class="mdi mdi-refresh"></i> Nieuwe wachtwoorden</button>
+  </div>
+  <div class="panel">
+    <div class="tile-head"><div class="tile-ic" id="sic"><i class="mdi mdi-shield-lock"></i></div><div class="tile-txt"><b id="sterk">Sterkte</b><small id="sterkuit"></small></div></div>
+    <div class="bar"><i id="sbar" style="width:0"></i></div>
+    <div id="lijst" class="lijst"></div>
+    <button type="button" class="small" id="alles" style="margin-top:10px"><i class="mdi mdi-content-copy"></i> Alles kopiëren</button>
+  </div>
+</div>
+<div class="panel">
+  <div class="tile-head" style="margin-bottom:6px"><div class="tile-ic"><i class="mdi mdi-lightbulb-on-outline"></i></div><div class="tile-txt"><b>Tips</b><small>Zo blijven je accounts veilig</small></div></div>
+  <ul class="tips"><li>Gebruik voor elk account een ander wachtwoord, en bewaar ze in een wachtwoordmanager (bijv. Bitwarden of KeePassXC).</li>
+    <li>Een wachtzin van 5 of meer willekeurige woorden is sterk en toch te onthouden: handig voor je wachtwoordmanager zelf of je computer.</li>
+    <li>Zet tweestapsverificatie aan waar het kan. Dan heeft een gestolen wachtwoord alleen weinig waarde.</li></ul>
+</div>
+</main>
+
+<footer>
+  Gratis en open source · Gemaakt door <a href="https://github.com/Rein033">Rein033</a> · Wachtwoorden worden in je browser gemaakt en nergens opgeslagen of verstuurd ·
+  <a href="https://uselesssite.nl/tools/">Meer tools</a>
+</footer>
+<script src="base.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>

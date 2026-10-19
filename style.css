@@ -1,0 +1,6 @@
+.lijst { display: grid; gap: 8px; margin-top: 14px; }
+.pw { display: flex; align-items: center; gap: 8px; background: var(--field); border: 1px solid var(--line); border-radius: 12px; padding: 6px 6px 6px 12px; }
+.pw code { flex: 1; font: 1rem/1.4 var(--mono); word-break: break-all; user-select: all; }
+.pw code .d { color: #1e88e5; } .pw code .y { color: #e53935; }
+.tips { margin: 0; padding-left: 1.2em; color: var(--muted); font-size: .92rem; } .tips li { margin: 4px 0; }
+.tog { padding: 3px 0; }
